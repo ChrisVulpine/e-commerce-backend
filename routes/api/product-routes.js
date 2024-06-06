@@ -72,13 +72,14 @@ router.post('/', (req, res) => {
   Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
-      if (req.body.tagIds.length) {
+      if (req.body.tagIds && req.body.tagIds.length) {
         const productTagIdArr = req.body.tagIds.map((tag_id) => {
           return {
             product_id: product.id,
             tag_id,
           };
         });
+        res.status(200).json({ message: 'Product Created successfully' });
         return ProductTag.bulkCreate(productTagIdArr);
       }
       // if no product tags, just respond
@@ -127,8 +128,9 @@ router.put('/:id', (req, res) => {
           ]);
         });
       }
-
+      res.status(200).json({ message: 'Product Updated successfully' });
       return res.json(product);
+      
     })
     .catch((err) => {
       // console.log(err);
@@ -136,8 +138,30 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
+  try {
+    // Extract the product ID from the request parameters
+    const { id } = req.params;
+
+    // Attempt to delete the product from the database
+    const result = await Product.destroy({
+      where: { id }
+    });
+
+    // If no rows were affected (i.e., no product was found with that ID), return a 404 status
+    if (result === 0) {
+      return res.status(404).json({ message: 'No product found with this id' });
+    }
+
+    // If the deletion was successful, return a success message
+    res.status(200).json({ message: 'Product deleted successfully' });
+  } catch (err) {
+    // If there was an error, log it and return a 500 status
+    console.error(err);
+    res.status(500).json({ error: 'Failed to delete product' });
+  }
+  
 });
 
 module.exports = router;
