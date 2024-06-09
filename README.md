@@ -40,7 +40,7 @@ This is a functioning backend for an e-commerce website. The back end takes a wo
 
    You can view a video demo video of the application here: [Demo]()
 
-![alt text](project-insomnia-demo.png)
+![alt text](lib/assets/imgs/project-insomnia-demo.png)
   
   ## Dependencies
   * dotenv: https://www.npmjs.com/package/dotenv
