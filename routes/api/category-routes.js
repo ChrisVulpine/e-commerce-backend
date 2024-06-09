@@ -1,11 +1,13 @@
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
-// The `/api/categories` endpoint
+// --------------------The `/api/categories` endpoint --------------------
 
+  // GET all categories
+  // include associated products
 router.get('/', async (req, res) => {
-  // find all categories
-  // be sure to include its associated Products
+
+
   try {
     const categories = await Category.findAll({
       include: [
@@ -23,9 +25,10 @@ router.get('/', async (req, res) => {
   }
 });
 
+  // GET one category by its `id` value
+  // include associated products
 router.get('/:id', async (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
+
   try {
     const product = await Category.findOne({
       where: { id: req.params.id },
@@ -45,26 +48,23 @@ router.get('/:id', async (req, res) => {
     console.error(err);
     res.status(500).json({ err: 'Failed to retrieve category.'});
   }
-
 });
 
+// POST or create a new category
 router.post('/', async (req, res) => {
-  // create a new category
-  try {
-    // Create the category using the data from the request body
-    const category = await Category.create(req.body);
 
-    // Respond with the created category
+  try {
+    const category = await Category.create(req.body);
     res.status(200).json(category);
   } catch (err) {
-    // If there was an error, log it and return a 400 status
     console.error(err);
     res.status(400).json({ error: 'Failed to create category' });
   }
 });
 
+  // PUT or update a category by its `id` value
 router.put('/:id', async (req, res) => {
-  // update a category by its `id` value
+
   try {
     // Extract the category ID from the request parameters
     const { id } = req.params;
@@ -74,40 +74,33 @@ router.put('/:id', async (req, res) => {
       where: { id }
     });
 
-    // If no rows were affected (i.e., no category was found with that ID), return a 404 status
     if (affectedRows === 0) {
       return res.status(404).json({ message: 'No category found with this id' });
     }
 
-    // If the update was successful, respond with a success message
     res.status(200).json({ message: 'Category updated successfully' });
   } catch (err) {
-    // If there was an error, log it and return a 500 status
     console.error(err);
     res.status(500).json({ error: 'Failed to update category' });
   }
 });
 
+  // DELETE a category by its `id` value
 router.delete('/:id', async (req, res) => {
-  // delete a category by its `id` value
+
   try {
-    // Extract the category ID from the request parameters
     const { id } = req.params;
 
-    // Attempt to delete the category from the database
     const result = await Category.destroy({
       where: { id }
     });
 
-    // If no rows were affected (i.e., no category was found with that ID), return a 404 status
     if (result === 0) {
       return res.status(404).json({ message: 'No category found with this id' });
     }
 
-    // If the deletion was successful, return a success message
     res.status(200).json({ message: 'Category deleted successfully' });
   } catch (err) {
-    // If there was an error, log it and return a 500 status
     console.error(err);
     res.status(500).json({ error: 'Failed to delete category' });
   }

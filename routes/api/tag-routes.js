@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const { Tag, Product, ProductTag } = require('../../models');
 
-// The `/api/tags` endpoint
+// --------------------The `/api/tags` endpoint --------------------
 
-// GET all tags (with associated product data)
+// GET all tags
 router.get('/', async (req, res) => {
   try {
     const tags = await Tag.findAll({
@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET a single tag by its `id` (with associated product data)
+// GET a single tag by its `id`
 router.get('/:id', async (req, res) => {
   try {
     const tag = await Tag.findByPk(req.params.id, {
@@ -42,7 +42,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// POST a new tag
+// POST or create a new tag
 router.post('/', async (req, res) => {
   try {
     const tag = await Tag.create(req.body);
