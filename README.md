@@ -38,7 +38,7 @@ This is a functioning backend for an e-commerce website. The back end takes a wo
 
   In order to confirm routes are functioning correctly and returning JSON as expected use an application like [Insomnia](https://insomnia.rest/download).
 
-   You can view a video demo video of the application here: [Demo]()
+   You can view a video demo video of the application here: [Demo](https://drive.google.com/file/d/1OF458cBHc5I6JjINqRJFjsu0cQ7PQnMa/view)
 
 ![alt text](lib/assets/imgs/project-insomnia-demo.png)
   
