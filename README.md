@@ -7,7 +7,7 @@
 [![Static Badge](https://img.shields.io/badge/Github-ChrisVulpine-darkgreen?style=flat&logo=github)](https://github.com/ChrisVulpine)
 
   ## Description
-This is a functioning backend for an e-commerce website. The back end takes a working Express.js API and configures it to use Sequelize in order to interact with a MySQL database. It includes routes for categories, products, and tags. 
+This is a functioning backend for an e-commerce website. The backend takes a working Express.js API and configures it to use Sequelize in order to interact with a MySQL database. It includes routes for categories, products, and tags. 
   
   ## Table of Contents
   
